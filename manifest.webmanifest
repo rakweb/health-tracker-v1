@@ -1,8 +1,8 @@
 {
   "name": "Health Tracker",
   "short_name": "HealthTracker",
-  "start_url": "/health-tracker-v5/",
-  "scope": "/health-tracker-v5/",
+  "start_url": "/health-tracker-beta/",
+  "scope": "/health-tracker-beta/",
   "display": "standalone",
   "background_color": "#0b1220",
   "theme_color": "#1976d2",
