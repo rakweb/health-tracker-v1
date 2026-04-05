@@ -34,6 +34,20 @@
     }
   }
 }
-  
-  
+options: {
+  plugins: {
+    tooltip: {
+      callbacks: {
+        title(context) {
+          const date = context[0].parsed.x;
+          return new Date(date).toLocaleDateString();
+        }
+      }
+    }
+  }
+}  
+ 
+
+
+ 
 </script>
