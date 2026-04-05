@@ -19,4 +19,21 @@
         datasets: [{ label: 'Demo', data: [12,8,14,10,16], borderColor: '#4ba3ff', tension: .25 }] }
     });
   }
+  
+  options: {
+  scales: {
+    x: {
+      type: 'time',
+      time: {
+        unit: 'day',
+        displayFormats: {
+          day: 'MMM d, yyyy'
+        },
+        tooltipFormat: 'MMM d, yyyy'
+      }
+    }
+  }
+}
+  
+  
 </script>
