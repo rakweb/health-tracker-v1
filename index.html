@@ -53,14 +53,18 @@
     .row > * { flex:1 1 160px; min-width:160px; }
 
     label{ display:block; font-size:12px; color:var(--muted); margin:8px 0 4px;}
-    input, select, textarea{
-      width:100%; background:#0c1426; color:var(--text);
-      border:1px solid #1f2a45; border-radius:10px; padding:10px 12px; font-size:14px; outline:none;
-    }
-    input:focus, select:focus, textarea:focus{
-      border-color:#35507f; box-shadow:0 0 0 3px rgba(75,163,255,0.12);
-    }
-    textarea{ min-height:72px; resize:vertical }
+    input:not([type="checkbox"]):not([type="radio"]),
+select,
+textarea{
+  width:100%;
+  background:#0c1426;
+  color:var(--text);
+  border:1px solid #1f2a45;
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:14px;
+  outline:none;
+}
 
     .btn{
       background:var(--btn); border:1px solid #2a3b67; color:var(--text);
@@ -121,6 +125,52 @@
 
     /* Full-width sections (Entries + Chart stacked vertically) */
     .full-width { width: 100%; margin-top: 12px; }
+	/* ==================== Select Fields: align checkbox + label ==================== */
+#fieldsGrid > div{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px 10px;
+  border:1px solid #1f2a45;
+  border-radius:10px;
+  background:#0c1426; /* matches your input bg */
+}
+
+/* Reset global input styling for checkboxes (they shouldn't be 100% width) */
+#fieldsGrid input[type="checkbox"]{
+  width:18px !important;
+  height:18px !important;
+  padding:0 !important;
+  margin:0 !important;
+  border-radius:4px;
+  background:transparent !important;
+  border:1px solid #35507f;
+  box-shadow:none !important;
+  accent-color: var(--accent);
+  flex:0 0 auto;
+}
+
+/* Override global label block styling inside fields grid */
+#fieldsGrid label{
+  display:inline !important;
+  margin:0 !important;
+  color:var(--text);
+  font-size:13px;
+  line-height:1.2;
+  cursor:pointer;
+  user-select:none;
+}
+
+/* Optional hover/focus polish */
+#fieldsGrid > div:hover{
+  border-color:#35507f;
+  background:#0d162a;
+}
+#fieldsGrid input[type="checkbox"]:focus-visible{
+  outline:none;
+  box-shadow:0 0 0 3px rgba(75,163,255,0.18);
+}
+
   </style>
 </head>
 <body>
