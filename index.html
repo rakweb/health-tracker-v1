@@ -179,8 +179,7 @@ textarea{
       <div>
         <h1>Health Tracker</h1>
         <div class="sub">
-          <span>Installable PWA • </span>
-          <span>App <strong id="appVersion">—</strong> • Build <strong id="buildNumber">—</strong> • SW <strong id="swVersion">—</strong></span>
+          <span>Health App <strong id="appVersion">—</strong> • Build <strong id="buildNumber"></span>
         </div>
       </div>
       <div class="install">
@@ -226,17 +225,15 @@ textarea{
         </div>
       </div>
 	  
-	<div class="row">
       <button class="btn" id="btnRefresh">Refresh</button>
+      <button class="btn ok" id="btnAdd">Add Entry</button>
       <button class="btn" id="btnFields">Select Fields</button>
       <button class="btn" id="btnThresholds">Thresholds</button>
       <button class="btn" id="btnSaveCSV">Save CSV</button>
       <button class="btn" id="btnSavePDF">Save PDF</button>
       <button class="btn" id="btnImportCSV">Import CSV</button>
       <input type="file" id="importFile" accept=".csv,text/csv" style="display:none" />
-	  <button class="btn ok" id="btnAdd">Add Entry</button>	
       <button class="btn warn" id="btnOptions">Options</button>
-	</div>
     </div>
 
     <!-- KPIs -->
@@ -252,7 +249,6 @@ textarea{
       <div class="section-title"><h2>Risk Alerts</h2></div>
       <div class="chips" id="riskChips"></div>
     </div>
-
     <!-- Entries (FULL WIDTH, ABOVE CHART) -->
     <div class="card full-width" id="entriesCard">
       <div class="section-title">
