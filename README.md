@@ -24,3 +24,11 @@ Helps users understand the UI or CLI output.
 
 ✔ Troubleshooting
 Common issues and fixes.
+
+
+License
+If you want others to legally use your app, include a LICENSE file.
+
+Common choices:
+
+MIT (very permissive)
