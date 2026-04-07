@@ -9,39 +9,20 @@
  * - Metrics Chart is recoded to display DATE ONLY on the x-axis (no hour).
  */
 
-/*** Build metadata (auto-filled from version.json) ***/
-const BUILD = { appVersion: '1.0.0', buildNumber: 'dev', commit: '-', timestamp: '-' };
 
-/* ==================== PWA: SW Register, Install, Updates, Version labels ==================== */
+/* ==================== PWA: SW Register, Install, Updates, labels ==================== */
 let deferredPrompt = null, swReg = null;
 
 const installBtn = document.getElementById('btnInstall');
 const checkBtn = document.getElementById('btnCheckUpdates');
 const installHint = document.getElementById('installHint');
-const appVersionSpan = document.getElementById('appVersion');
 const buildNumberSpan = document.getElementById('buildNumber');
-const swVersionSpan = document.getElementById('swVersion');
-
-// version.json (fresh each load)
-fetch('./version.json', { cache: 'no-store' })
-  .then(r => r.ok ? r.json() : null)
-  .then(v => {
-    if (!v) return;
-    BUILD.appVersion = v.version || BUILD.appVersion;
-    BUILD.buildNumber = v.build || BUILD.buildNumber;
-    BUILD.commit = (v.commit || BUILD.commit);
-    BUILD.timestamp = v.timestamp || BUILD.timestamp;
-    if (appVersionSpan) appVersionSpan.textContent = BUILD.appVersion;
-    if (buildNumberSpan) buildNumberSpan.textContent = `${BUILD.buildNumber}`;
-  })
-  .catch(() => { if (appVersionSpan) appVersionSpan.textContent = '—'; });
 
 function registerSW() {
   if (!('serviceWorker' in navigator)) return;
   navigator.serviceWorker.register('./sw.js')
     .then(reg => {
       swReg = reg;
-      const sendGetVersion = () => navigator.serviceWorker.controller?.postMessage({ type: 'GET_VERSION' });
       navigator.serviceWorker.addEventListener('message', (evt) => {
         if (evt.data?.type === 'VERSION' && evt.data?.cache && swVersionSpan) swVersionSpan.textContent = evt.data.cache;
       });
