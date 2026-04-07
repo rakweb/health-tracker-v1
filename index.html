@@ -5,11 +5,6 @@
   <title>Health Tracker</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0b1220" />
-  
-<footer style="margin-top:40px;font-size:0.9em;color:#666;">
-    Version: <span id="app-version">Loading…</span>
-</footer>
-
 
   <!-- PWA Manifest -->
   <link rel="manifest" href="./manifest.webmanifest" />
@@ -180,29 +175,11 @@ textarea{
 </head>
 <body>
 
-<script>
-fetch('/api/version')
-  .then(response => response.json())
-  .then(data => {
-      document.getElementById('app-version').innerText =
-        data.version + ' (Built ' + data.buildDate + ')';
-  })
-  .catch(() => {
-      document.getElementById('app-version').innerText = 'Unknown';
-  });
-</script>
-
-
-
   <header>
     <div class="wrap headbar">
       <div>
         <h1>Health Tracker</h1>
-        <div class="sub">
-          <span>Health App • </span>
-          <span>Version <strong id="appVersion">—</strong> • Build <strong id="buildNumber"></span>
-        </div>
-      </div>
+             </div>
       <div class="install">
         <button id="btnInstall" class="btn" style="display:none">Install</button>
         <button id="btnCheckUpdates" class="btn">Check for updates</button>
