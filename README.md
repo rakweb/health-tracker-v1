@@ -1,63 +1,47 @@
-
 Readme file
 
 Health Tracker with lung pleural effusion.
 
-The Health-Tracker app provides a means for tracking daily health variables that help in your discussions with healthcare providers. This app is a tool to maintain a daily record of patient numbers related to health and wellbeing.
+**Health Tracker** is a lightweight, privacy-focused web application designed to help individuals record and monitor personal health-related information over time. The application emphasizes local data storage, trend visualization, and personal insight—without collecting, transmitting, or sharing user data externally.
 
-App can be installed locally in PC or Android phone, or can be used without installation on aby browser.
+> ⚠️ **Disclaimer:** Health Tracker is not a medical device and does not provide medical advice, diagnosis, or treatment.
 
-Link to Releases (GitHub auto‑generates download buttons)
-OS support (Windows/Android/Linux)
+## Features
 
-Usage:  Show how to run the app with examples.
+- 📊 Track personal health metrics over time
+- 📈 View trends and summarized statistical data
+- 🔐 All data stored locally on the user’s device
+- 🌐 Runs entirely in the browser
+- 🧩 Simple, extensible design suitable for experimentation and learning
 
-Screenshots: UI or CLI output.
+## Purpose & Scope
 
-Troubleshooting: Common issues and fixes.
+Health Tracker is intended solely for **personal tracking and informational use**.  
+It provides a structured way to record data and observe trends that may be useful for self-reflection or discussion with qualified healthcare professionals.
 
-Include:
-What data is collected (or explicitly not collected)
-Where data is stored (local device, cloud, none)
-Whether data is shared (ideally: never)
-Contact email for privacy concerns
+The application **does not**:
+- Replace professional medical judgment
+- Interpret health data clinically
+- Transmit or store user data on external servers
 
-Example language (safe & simple):
+## Privacy
 
-This application stores health data locally on the user’s device. No data is sold, shared, or transmitted to third parties.
+Privacy is a core design principle.
 
-Medical Disclaimer: in no way this app is to be used as a substitude to medical care.
+- All user-entered data is stored **locally**
+- No accounts, logins, or cloud services are used
+- No analytics, tracking scripts, or third-party data collection
 
-README
-App “About” screen
-Settings → Legal
+Users retain full control over their data at all times.
 
-7. Build Release Artifacts
-Depending on platform:
-Desktop
+## Installation & Usage
 
-Windows: .exe or .msi
-macOS: .dmg
-Linux: .AppImage, .deb, or .rpm
+### Option 1: Run Online
+You can access the application directly via GitHub Pages:
 
-Web App
+👉 https://rakweb.github.io/health-tracker-beta/
 
-Hosted static build
-HTTPS enabled
-Clear offline behavior documented
-
-Mobile
-
-Android: signed .aab or .apk
-iOS: TestFlight build (if applicable)
-
-Store builds in:
-GitHub Releases
-Project website
-Store dashboards
-Disk provided
-
-Create a GitHub Release
-Attach build files
-Mark as Pre-release
-Add release notes:
+### Option 2: Run Locally
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/rakweb/health-tracker-beta.git
