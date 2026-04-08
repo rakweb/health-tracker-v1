@@ -1,34 +1,63 @@
-Lung fluid draw tracker for Lymphoma cancer patients.
 
-✔ Overview
-What the app does and why it exists.
+Readme file
 
-✔ Installation / Download instructions
-If you provide binaries:
+Health Tracker with lung pleural effusion.
+
+The Health-Tracker app provides a means for tracking daily health variables that help in your discussions with healthcare providers. This app is a tool to maintain a daily record of patient numbers related to health and wellbeing.
+
+App can be installed locally in PC or Android phone, or can be used without installation on aby browser.
 
 Link to Releases (GitHub auto‑generates download buttons)
+OS support (Windows/Android/Linux)
 
-Mention OS support (Windows/macOS/Linux)
+Usage:  Show how to run the app with examples.
 
-If users must build from source:
+Screenshots: UI or CLI output.
 
-List dependencies
+Troubleshooting: Common issues and fixes.
 
-Provide build steps
+Include:
+What data is collected (or explicitly not collected)
+Where data is stored (local device, cloud, none)
+Whether data is shared (ideally: never)
+Contact email for privacy concerns
 
-✔ Usage
-Show how to run the app with examples.
+Example language (safe & simple):
 
-✔ Screenshots (optional)
-Helps users understand the UI or CLI output.
+This application stores health data locally on the user’s device. No data is sold, shared, or transmitted to third parties.
 
-✔ Troubleshooting
-Common issues and fixes.
+Medical Disclaimer: in no way this app is to be used as a substitude to medical care.
 
+README
+App “About” screen
+Settings → Legal
 
-License
-If you want others to legally use your app, include a LICENSE file.
+7. Build Release Artifacts
+Depending on platform:
+Desktop
 
-Common choices:
+Windows: .exe or .msi
+macOS: .dmg
+Linux: .AppImage, .deb, or .rpm
 
-MIT (very permissive)
+Web App
+
+Hosted static build
+HTTPS enabled
+Clear offline behavior documented
+
+Mobile
+
+Android: signed .aab or .apk
+iOS: TestFlight build (if applicable)
+
+Store builds in:
+GitHub Releases
+Project website
+Store dashboards
+Disk provided
+
+Create a GitHub Release
+Attach build files
+Mark as Pre-release
+Add release notes:
