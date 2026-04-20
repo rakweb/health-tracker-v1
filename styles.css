@@ -1,10 +1,6 @@
-/* ====================== HEALTH TRACKER - Enhanced Themes ====================== */
-
 :root {
-  /* === DARK MODE (Default) === */
   --bg: #0b1220;
   --card: #0e1628;
-  --panel: #121a2a;
   --text: #e6eefc;
   --muted: #8aa0c3;
   --accent: #4ba3ff;
@@ -14,16 +10,11 @@
   --ring: #2a3a58;
   --btn: #1a2842;
   --btn-hover: #223152;
-  --input-bg: #0c1426;
-  --border: #1f2a45;
-  --shadow: rgba(0,0,0,0.5);
 }
 
 [data-theme="light"] {
-  /* === LIGHT MODE - Much Improved === */
   --bg: #f8fafc;
   --card: #ffffff;
-  --panel: #f1f5f9;
   --text: #1e2937;
   --muted: #64748b;
   --accent: #2563eb;
@@ -33,46 +24,26 @@
   --ring: #cbd5e1;
   --btn: #f1f5f9;
   --btn-hover: #e2e8f0;
-  --input-bg: #ffffff;
-  --border: #e2e8f0;
-  --shadow: rgba(0,0,0,0.08);
 }
 
-/* Base Styles */
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font-family:Inter,system-ui,sans-serif; }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: Inter, system-ui, sans-serif;
-  transition: background 0.4s, color 0.4s;
-  line-height: 1.5;
+header { position:sticky; top:0; backdrop-filter:blur(8px); background:rgba(11,18,32,0.95); border-bottom:1px solid var(--ring); }
+
+.wrap { max-width:1200px; margin:0 auto; padding:12px 16px; }
+
+.card { background:var(--card); border:1px solid var(--ring); border-radius:14px; padding:16px; margin-bottom:16px; }
+
+.row { 
+  display: flex; 
+  gap: 12px; 
+  flex-wrap: wrap; 
+  align-items: end;
 }
 
-header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  backdrop-filter: blur(10px);
-  background: rgba(11, 18, 32, 0.95);
-  border-bottom: 1px solid var(--ring);
-}
+.row > div { flex: 1; min-width: 160px; }
 
-[data-theme="light"] header {
-  background: rgba(248, 250, 252, 0.95);
-}
-
-/* Cards */
-.card {
-  background: var(--card);
-  border: 1px solid var(--ring);
-  border-radius: 14px;
-  padding: 16px;
-  box-shadow: 0 4px 20px var(--shadow);
-  margin-bottom: 16px;
-}
-
-/* Buttons */
 .btn {
   background: var(--btn);
   border: 1px solid var(--ring);
@@ -80,74 +51,20 @@ header {
   padding: 11px 16px;
   border-radius: 10px;
   cursor: pointer;
-  transition: all 0.2s;
-  font-weight: 500;
 }
 
-.btn:hover {
-  background: var(--btn-hover);
-  transform: translateY(-1px);
-}
-
-.btn:active { transform: scale(0.96); }
-
+.btn:hover { background: var(--btn-hover); }
 .btn.ok { background: var(--ok); color: white; }
 .btn.danger { background: var(--danger); color: white; }
 
-/* Inputs */
-input:not([type="checkbox"]):not([type="radio"]),
-select, textarea {
-  background: var(--input-bg);
-  border: 1px solid var(--border);
-  color: var(--text);
-  border-radius: 10px;
-  padding: 11px 12px;
-  width: 100%;
-}
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 12px; }
 
-/* Toolbar Row Fix */
-.row {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.row > * {
-  flex: 1 1 160px;
-  min-width: 160px;
-}
-
-/* Table */
 table { width: 100%; border-collapse: collapse; }
-th, td { padding: 10px 12px; border-bottom: 1px solid var(--ring); }
-thead { background: var(--panel); }
+th, td { padding: 10px; border-bottom: 1px solid var(--ring); }
 
-/* Toast */
-.toast {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--card);
-  color: var(--text);
-  border: 1px solid var(--ring);
-  border-radius: 12px;
-  padding: 14px 20px;
-  display: none;
-  z-index: 2000;
-  box-shadow: 0 8px 25px var(--shadow);
-}
-.toast.show { display: block; }
-
-/* Modals */
 .modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+  position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none;
+  align-items: center; justify-content: center; z-index: 1000;
 }
 .modal-backdrop.show { display: flex; }
 
@@ -160,3 +77,10 @@ thead { background: var(--panel); }
   max-height: 92vh;
   overflow: auto;
 }
+
+.toast {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  background: var(--card); color: var(--text); border: 1px solid var(--ring);
+  border-radius: 12px; padding: 14px 20px; display: none; z-index: 2000;
+}
+.toast.show { display: block; }
