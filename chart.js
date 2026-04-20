@@ -1,9 +1,8 @@
-// ====================== HEALTH TRACKER - chart.js (with Theme) ======================
+// ====================== HEALTH TRACKER - WORKING chart.js ======================
 
 let entries = [];
 let chartInstance = null;
 let currentEditIndex = -1;
-let isDarkMode = true;
 
 // Toast
 function showToast(msg) {
@@ -11,7 +10,7 @@ function showToast(msg) {
   if (toast) {
     toast.textContent = msg;
     toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2500);
+    setTimeout(() => toast.classList.remove('show'), 2800);
   }
 }
 
@@ -19,7 +18,7 @@ window.UI = {
   closeEntry: () => document.getElementById('entryModal').classList.remove('show')
 };
 
-// Render Table + Chart (same as before)
+// Render Table
 function renderTable() {
   const tbody = document.getElementById('tableBody');
   if (!tbody) return;
@@ -37,9 +36,28 @@ function renderTable() {
   `).join('');
 }
 
-window.editEntry = function(i) { /* ... same as before */ };
-window.deleteEntry = function(i) { /* ... same as before */ };
+window.editEntry = function(i) {
+  currentEditIndex = i;
+  const e = entries[i];
+  document.getElementById('entryModalTitle').textContent = 'Edit Entry';
+  document.getElementById('f_date').value = e.date || '';
+  document.getElementById('f_glucose').value = e.glucose || '';
+  document.getElementById('f_sys').value = e.sys || '';
+  document.getElementById('f_dia').value = e.dia || '';
+  document.getElementById('f_weightLbs').value = e.weightLbs || '';
+  document.getElementById('entryModal').classList.add('show');
+};
 
+window.deleteEntry = function(i) {
+  if (confirm('Delete entry?')) {
+    entries.splice(i, 1);
+    renderTable();
+    renderChart();
+    showToast('Entry deleted');
+  }
+};
+
+// Render Chart
 function renderChart() {
   if (chartInstance) chartInstance.destroy();
   const canvas = document.getElementById('metricsChart');
@@ -58,23 +76,17 @@ function renderChart() {
   });
 }
 
-// Theme Toggle
-function toggleTheme() {
-  isDarkMode = !isDarkMode;
-  document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-  localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-  showToast(isDarkMode ? '🌙 Dark Mode' : '☀️ Light Mode');
-}
-
-// ==================== BUTTONS ====================
+// ==================== ALL BUTTONS ====================
 document.addEventListener('DOMContentLoaded', () => {
 
+  // Add Entry
   document.getElementById('btnAdd').addEventListener('click', () => {
     currentEditIndex = -1;
     document.getElementById('entryModalTitle').textContent = 'Add Entry';
     document.getElementById('entryModal').classList.add('show');
   });
 
+  // Save Entry
   document.getElementById('btnSaveEntry').addEventListener('click', () => {
     const entry = {
       date: document.getElementById('f_date').value || new Date().toISOString().slice(0,10),
@@ -84,8 +96,12 @@ document.addEventListener('DOMContentLoaded', () => {
       weightLbs: parseFloat(document.getElementById('f_weightLbs').value) || null
     };
 
-    if (currentEditIndex >= 0) entries[currentEditIndex] = entry;
-    else entries.unshift(entry);
+    if (currentEditIndex >= 0) {
+      entries[currentEditIndex] = entry;
+      currentEditIndex = -1;
+    } else {
+      entries.unshift(entry);
+    }
 
     renderTable();
     renderChart();
@@ -93,15 +109,53 @@ document.addEventListener('DOMContentLoaded', () => {
     UI.closeEntry();
   });
 
+  // Refresh
   document.getElementById('btnRefresh').addEventListener('click', () => {
     renderTable();
     renderChart();
     showToast('✅ Refreshed');
   });
 
-  document.getElementById('btnToggleTheme').addEventListener('click', toggleTheme);
+  // Theme Toggle
+  document.getElementById('btnToggleTheme').addEventListener('click', () => {
+    document.documentElement.setAttribute('data-theme', 
+      document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+    showToast('Theme changed');
+  });
 
-  // Other buttons (CSV, PDF, etc.) - add as needed
+  // Export CSV
+  document.getElementById('btnSaveCSV').addEventListener('click', () => {
+    if (!entries.length) return showToast('No data');
+    let csv = "Date,Glucose,Sys,Dia,Weight\n";
+    entries.forEach(e => csv += `${e.date||''},${e.glucose||''},${e.sys||''},${e.dia||''},${e.weightLbs||''}\n`);
+    const blob = new Blob([csv], {type: 'text/csv'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'health_tracker.csv';
+    a.click();
+    showToast('✅ CSV Exported');
+  });
+
+  // Export PDF
+  document.getElementById('btnSavePDF').addEventListener('click', () => {
+    if (typeof jspdf === "undefined") return showToast('PDF library not loaded');
+    const { jsPDF } = jspdf;
+    const doc = new jsPDF();
+    doc.text("Health Tracker Report", 20, 20);
+    doc.text(`Total Entries: ${entries.length}`, 20, 30);
+    doc.save("health_report.pdf");
+    showToast('✅ PDF Exported');
+  });
+
+  // Other buttons (open modals)
+  document.getElementById('btnFields')?.addEventListener('click', () => 
+    document.getElementById('fieldsModal').classList.add('show'));
+  
+  document.getElementById('btnThresholds')?.addEventListener('click', () => 
+    document.getElementById('thModal').classList.add('show'));
+  
+  document.getElementById('btnOptions')?.addEventListener('click', () => 
+    document.getElementById('optModal').classList.add('show'));
 
   // Sample Data
   if (entries.length === 0) {
@@ -113,5 +167,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   renderTable();
   renderChart();
-  showToast('✅ Theme button added');
+  showToast('✅ PWA Fully Working');
 });
