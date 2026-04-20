@@ -8,12 +8,12 @@
 
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icons/icon-192.png" sizes="192x192" />
-  <link rel="apple-touch-icon" href="icons/icon-192.png" />
 
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="range-slider.css" />
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@3.1.0/dist/chartjs-plugin-annotation.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js" defer></script>
 
   <script src="range-slider.js" defer></script>
@@ -32,7 +32,6 @@
   </header>
 
   <main class="wrap">
-    <!-- Toolbar -->
     <div class="toolbar card">
       <div class="row">
         <div><label>From Date</label><input type="date" id="filterStart"></div>
@@ -75,15 +74,16 @@
         <input type="file" id="importFile" accept=".csv" style="display:none">
         <button class="btn ok" id="btnAdd">Add Entry</button>
         <button class="btn warn" id="btnOptions">Options</button>
+        <button class="btn" id="btnToggleTheme">🌗 Theme</button>
       </div>
     </div>
 
-    <!-- KPIs, Risk Alerts, Entries, Chart (kept original) -->
-    <div class="kpis"> ... </div>
-    <div class="card"><h2>Risk Alerts</h2><div class="chips" id="riskChips"></div></div>
-    <div class="card full-width" id="entriesCard"> ... table with id="tableBody" ... </div>
+    <!-- KPIs, Risk Alerts, Entries, Chart -->
+    <div class="kpis">...</div>
+    <div class="card"><div class="section-title"><h2>Risk Alerts</h2></div><div class="chips" id="riskChips"></div></div>
+    <div class="card full-width" id="entriesCard">...</div>
     <div class="card full-width" id="chartCard">
-      <h2>Trend Analysis</h2>
+      <div class="section-title"><h2>Trend Analysis</h2></div>
       <div style="height:380px"><canvas id="metricsChart"></canvas></div>
     </div>
   </main>
@@ -91,7 +91,7 @@
   <!-- Toast -->
   <div id="updateToast" class="toast"></div>
 
-  <!-- Add Entry Modal (Full Original Fields) -->
+  <!-- Full Original Add Entry Modal -->
   <div class="modal-backdrop" id="entryModal">
     <div class="modal">
       <div class="modal-header">
@@ -101,14 +101,43 @@
       <div class="row">
         <div><label>Date</label><input type="date" id="f_date"></div>
         <div><label>Time</label><input type="time" id="f_time"></div>
-        <div><label>Glucose</label><input type="number" id="f_glucose"></div>
+        <div><label>Glucose (mg/dL)</label><input type="number" id="f_glucose"></div>
+        <div><label>Body Battery (0-100)</label><input type="number" id="f_bodyBattery" min="0" max="100"></div>
+        <div><label>Stress (0-100)</label><input type="number" id="f_stress" min="0" max="100"></div>
         <div><label>Weight (lbs)</label><input type="number" id="f_weightLbs"></div>
+        <div><label>Height (in)</label><input type="number" id="f_heightIn"></div>
         <div><label>Waist (in)</label><input type="number" id="f_waistIn"></div>
-        <div><label>Systolic</label><input type="number" id="f_sys"></div>
-        <div><label>Diastolic</label><input type="number" id="f_dia"></div>
-        <div><label>SpO₂</label><input type="number" id="f_spo2"></div>
-        <div><label>Heart Rate</label><input type="number" id="f_hr"></div>
-        <!-- Add more fields as needed from your original -->
+        <div><label>Temperature (°F)</label><input type="number" id="f_tempF"></div>
+        <div><label>Lung Fluid (cc)</label><input type="number" id="f_lungFluidCc"></div>
+        <div><label>Systolic (mmHg)</label><input type="number" id="f_sys"></div>
+        <div><label>Diastolic (mmHg)</label><input type="number" id="f_dia"></div>
+        <div><label>SpO₂ (%)</label><input type="number" id="f_spo2"></div>
+        <div><label>Heart Rate (bpm)</label><input type="number" id="f_hr"></div>
+        <div><label>Respiration (br/min)</label><input type="number" id="f_resp"></div>
+        <div><label>Sleep (hrs)</label><input type="number" id="f_sleep" step="0.1"></div>
+        <div><label>Steps</label><input type="number" id="f_steps"></div>
+        <div>
+          <label>Pain (0-10)</label>
+          <input type="range" id="f_pain" min="0" max="10" value="0" oninput="document.getElementById('painVal').textContent=this.value">
+          <div class="small">Level: <b id="painVal">0</b></div>
+        </div>
+        <div>
+          <label>Symptoms (0-10)</label>
+          <input type="range" id="f_symptoms" min="0" max="10" value="0" oninput="document.getElementById('symptomsVal').textContent=this.value">
+          <div class="small">Level: <b id="symptomsVal">0</b></div>
+        </div>
+        <div>
+          <label>Emotions</label>
+          <select id="f_emotions">
+            <option value="">—</option>
+            <option>Happy</option><option>Calm</option><option>Neutral</option>
+            <option>Anxious</option><option>Sad</option><option>Stressed</option><option>Fatigued</option><option>Angry</option>
+          </select>
+        </div>
+        <div style="grid-column:1/-1">
+          <label>Comments</label>
+          <textarea id="f_comments" placeholder="Notes..."></textarea>
+        </div>
       </div>
       <div class="modal-actions">
         <button class="btn danger" id="btnDeleteEntry" style="display:none">Delete</button>
@@ -116,8 +145,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Other modals (Fields, Thresholds, Options) can be added similarly -->
 
   <script>
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("/service-worker.js");
